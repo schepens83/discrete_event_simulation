@@ -1,6 +1,5 @@
 class Comparabel
 	def less_than(y = Comparabel.new(0))
-
 	end
 end
 
@@ -18,7 +17,7 @@ class Event < AbstractEvent
 	end
 
 	def less_than(y = Comparabel.new)
-		time < y.time
+		time < y.time if y.class.ancestors.include?(Comparabel)
 	end
 end
 
@@ -49,13 +48,11 @@ class Simulator < AbstractSimulator
 	end
 
 	def do_all_events
-		e = Event.new
+		e = Event.new 
 		while (e = events.remove_first) != nil
 			@time = e.time
 			e.execute(self)
 		end
-
-
 	end
 
 end
